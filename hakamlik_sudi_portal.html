@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O'zbekiston Hakamlik Sudi — Rasmiy Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f2744;
+    --navy-light: #1a3a5c;
+    --gold: #c8962a;
+    --gold-light: #e8b84b;
+    --cream: #f7f4ef;
+    --cream-dark: #ede8e0;
+    --white: #ffffff;
+    --text-main: #1a1a1a;
+    --text-muted: #5a5a5a;
+    --text-light: #888;
+    --border: #ddd8ce;
+    --success: #2d6a4f;
+    --success-bg: #d8f3dc;
+    --info-bg: #e8f0fa;
+    --info-text: #1a3a5c;
+    --shadow: 0 2px 20px rgba(15,39,68,0.08);
+    --shadow-md: 0 8px 40px rgba(15,39,68,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-main);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 64px;
+    border-bottom: 1px solid rgba(200,150,42,0.3);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+  .nav-emblem {
+    width: 40px; height: 40px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; color: var(--gold);
+  }
+  .nav-title-block .t1 { font-size: 14px; font-weight: 500; color: #fff; letter-spacing: 0.02em; }
+  .nav-title-block .t2 { font-size: 10px; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .nav-links { display: flex; gap: 0; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .nav-links a:hover, .nav-links a.active { color: #fff; background: rgba(200,150,42,0.15); }
+  .nav-links a.active { color: var(--gold-light); }
+
+  .nav-btn {
+    background: var(--gold);
+    color: var(--navy) !important;
+    font-weight: 500 !important;
+    padding: 7px 16px !important;
+    border-radius: 4px !important;
+  }
+  .nav-btn:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+  /* ── PAGES ── */
+  .page { display: none; padding-top: 64px; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    padding: 5rem 2.5rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 80px,
+      rgba(200,150,42,0.03) 80px,
+      rgba(200,150,42,0.03) 81px
+    );
+  }
+  .hero-inner { max-width: 1000px; margin: 0 auto; position: relative; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 28px; height: 1px; background: var(--gold);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 46px; font-weight: 500; color: #fff;
+    line-height: 1.2; margin-bottom: 1.25rem;
+    max-width: 680px;
+  }
+  .hero h1 em { color: var(--gold-light); font-style: normal; }
+  .hero p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 520px; line-height: 1.8; margin-bottom: 2rem; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn-gold {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold); color: var(--navy);
+    font-size: 13px; font-weight: 500;
+    padding: 10px 22px; border-radius: 4px;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-gold:hover { background: var(--gold-light); }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: rgba(255,255,255,0.8);
+    font-size: 13px; font-weight: 400;
+    padding: 10px 22px; border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.25); cursor: pointer;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+  /* Stats bar */
+  .stats-bar {
+    background: var(--navy-light);
+    border-top: 1px solid rgba(200,150,42,0.2);
+    border-bottom: 1px solid rgba(200,150,42,0.2);
+  }
+  .stats-inner {
+    max-width: 1000px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+  }
+  .stat-item {
+    padding: 1.5rem 2rem;
+    border-right: 1px solid rgba(200,150,42,0.15);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--gold-light); }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; letter-spacing: 0.02em; }
+
+  /* ── SECTIONS ── */
+  .section { max-width: 1000px; margin: 0 auto; padding: 3rem 2.5rem; }
+  .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.75rem; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 500; color: var(--navy);
+  }
+  .section-sub { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+  .see-all-link {
+    font-size: 12px; color: var(--gold); cursor: pointer;
+    text-decoration: none; display: flex; align-items: center; gap: 4px;
+    font-weight: 500; letter-spacing: 0.02em;
+  }
+  .see-all-link:hover { color: var(--navy); }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0 2.5rem; }
+
+  /* ── DOC CARDS ── */
+  .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
+  .doc-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: block;
+  }
+  .doc-card:hover { border-color: var(--gold); box-shadow: var(--shadow); transform: translateY(-2px); }
+  .doc-icon-wrap {
+    width: 40px; height: 40px;
+    background: var(--cream);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 12px; font-size: 20px;
+  }
+  .doc-name { font-size: 13px; font-weight: 500; color: var(--text-main); margin-bottom: 4px; }
+  .doc-meta { font-size: 11px; color: var(--text-light); }
+  .doc-tag {
+    display: inline-block; margin-top: 10px;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.04em;
+    padding: 3px 8px; border-radius: 3px;
+  }
+  .tag-free { background: #d8f3dc; color: #1b4332; }
+  .tag-new { background: var(--info-bg); color: var(--info-text); }
+  .tag-notarial { background: #fef3c7; color: #78350f; }
+
+  /* ── NEWS ── */
+  .news-grid { display: flex; flex-direction: column; gap: 12px; }
+  .news-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    display: grid; grid-template-columns: 90px 1fr;
+    gap: 1.25rem; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .news-card:hover { border-color: var(--navy); box-shadow: var(--shadow); }
+  .news-date-col { text-align: center; padding-top: 4px; }
+  .news-day { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--navy); line-height: 1; }
+  .news-month { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.06em; }
+  .news-badge {
+    display: inline-block; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 3px; margin-bottom: 6px;
+  }
+  .nb-law { background: var(--info-bg); color: var(--info-text); }
+  .nb-platform { background: #fef3c7; color: #78350f; }
+  .nb-edu { background: #ede8f5; color: #3b1f6e; }
+  .nb-announce { background: var(--success-bg); color: var(--success); }
+  .news-title { font-size: 14px; font-weight: 500; color: var(--text-main); margin-bottom: 5px; }
+  .news-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+
+  /* ── HAKAMLAR ── */
+  .hakam-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .hakam-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem;
+    display: flex; gap: 14px; align-items: flex-start;
+    transition: all 0.2s;
+  }
+  .hakam-card:hover { border-color: var(--navy); box-shadow: var(--shadow); }
+  .hakam-av {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--navy); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 15px;
+    flex-shrink: 0;
+  }
+  .hakam-name { font-size: 14px; font-weight: 500; }
+  .hakam-spec { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+  .hakam-meta { font-size: 11px; color: var(--text-light); margin-top: 6px; display: flex; gap: 10px; }
+  .hakam-status {
+    display: inline-block; font-size: 10px; font-weight: 500;
+    background: var(--success-bg); color: var(--success);
+    padding: 2px 7px; border-radius: 3px; margin-top: 6px;
+  }
+
+  /* ── ARIZA PAGE ── */
+  .ariza-page-inner { max-width: 1000px; margin: 0 auto; padding: 3rem 2.5rem; }
+  .ariza-header {
+    background: var(--navy); border-radius: 8px;
+    padding: 2rem 2.5rem; margin-bottom: 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .ariza-header h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: #fff; }
+  .ariza-header p { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+  .ariza-types { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 2rem; }
+  .ariza-type {
+    background: var(--white); border: 2px solid var(--border);
+    border-radius: 6px; padding: 1.25rem; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .ariza-type.selected { border-color: var(--gold); background: #fffbf2; }
+  .ariza-type-icon { font-size: 22px; margin-bottom: 8px; }
+  .ariza-type-name { font-size: 14px; font-weight: 500; }
+  .ariza-type-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+  .ariza-type-tag { font-size: 11px; color: var(--text-light); margin-top: 8px; }
+
+  .form-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 8px; padding: 2rem;
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label { font-size: 12px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.02em; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--cream);
+    color: var(--text-main);
+    outline: none; transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--navy); background: var(--white); }
+  .form-group textarea { resize: vertical; line-height: 1.6; }
+  .form-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 1.5rem; margin-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .form-note { font-size: 12px; color: var(--text-light); display: flex; align-items: center; gap: 6px; }
+
+  /* ── SEARCH + FILTER ── */
+  .search-filter { display: flex; gap: 10px; margin-bottom: 1.5rem; }
+  .search-input {
+    flex: 1; font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px; padding: 9px 14px;
+    border: 1px solid var(--border); border-radius: 4px;
+    background: var(--white); color: var(--text-main); outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: var(--navy); }
+  .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .ftab {
+    font-size: 12px; padding: 5px 14px;
+    border: 1px solid var(--border); border-radius: 20px;
+    cursor: pointer; color: var(--text-muted); background: var(--white);
+    transition: all 0.2s;
+  }
+  .ftab.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .ftab:hover:not(.active) { border-color: var(--navy); color: var(--navy); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    border-top: 1px solid rgba(200,150,42,0.2);
+    padding: 3rem 2.5rem 2rem;
+  }
+  .footer-inner { max-width: 1000px; margin: 0 auto; }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2rem; margin-bottom: 2rem;
+  }
+  .footer-brand .fb-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; color: #fff; margin-bottom: 8px;
+  }
+  .footer-brand p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.7; }
+  .footer-col h4 { font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+  .footer-col a { display: block; font-size: 12px; color: rgba(255,255,255,0.5); cursor: pointer; margin-bottom: 7px; text-decoration: none; transition: color 0.2s; }
+  .footer-col a:hover { color: #fff; }
+  .footer-bottom {
+    padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p { font-size: 11px; color: rgba(255,255,255,0.3); }
+  .footer-badge {
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(200,150,42,0.6); border: 1px solid rgba(200,150,42,0.3);
+    padding: 4px 10px; border-radius: 3px;
+  }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb {
+    background: var(--cream-dark);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 2.5rem;
+  }
+  .breadcrumb-inner { max-width: 1000px; margin: 0 auto; font-size: 12px; color: var(--text-light); }
+  .breadcrumb-inner span { color: var(--text-muted); cursor: pointer; }
+  .breadcrumb-inner span:hover { color: var(--navy); }
+
+  /* ── ALERT BOX ── */
+  .alert-box {
+    background: var(--info-bg); border-left: 3px solid var(--navy);
+    border-radius: 4px; padding: 12px 16px;
+    font-size: 13px; color: var(--info-text);
+    margin-bottom: 1.5rem; display: flex; gap: 10px;
+  }
+
+  /* ── NEWS PAGE DETAIL ── */
+  .news-page { max-width: 1000px; margin: 0 auto; padding: 3rem 2.5rem; }
+
+  /* ── HAKAMLAR PAGE ── */
+  .hakamlar-page { max-width: 1000px; margin: 0 auto; padding: 3rem 2.5rem; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .hero { padding: 3rem 1.25rem 2rem; }
+    .hero h1 { font-size: 28px; }
+    .stats-inner { grid-template-columns: 1fr 1fr; }
+    .stat-item { padding: 1rem; }
+    .section { padding: 2rem 1.25rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .ariza-types { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home')">
+    <div class="nav-emblem">H</div>
+    <div class="nav-title-block">
+      <div class="t1">O'zbekiston Hakamlik Sudi</div>
+      <div class="t2">Rasmiy Portal</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a class="active" onclick="showPage('home')">Bosh sahifa</a>
+    <a onclick="showPage('docs')">Hujjatlar</a>
+    <a onclick="showPage('hakamlar')">Hakamlar</a>
+    <a onclick="showPage('news')">Yangiliklar</a>
+    <a class="nav-btn" onclick="showPage('ariza')">Ariza berish</a>
+  </div>
+</nav>
+
+<!-- ════════════════ HOME PAGE ════════════════ -->
+<div id="home" class="page active">
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Rasmiy davlat platformasi</div>
+      <h1>Hakamlik nizolarini<br><em>tez va adolatli</em><br>hal qiling</h1>
+      <p>Elektron hujjatlar, sertifikatlangan hakamlar bazasi va raqamli ariza berish — hakamlik jarayonini to'liq onlayn boshqaring.</p>
+      <div class="hero-actions">
+        <button class="btn-gold" onclick="showPage('ariza')">
+          &#9998; Ariza berish
+        </button>
+        <button class="btn-ghost" onclick="showPage('docs')">
+          &#8659; Hujjatlar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-num">1,240+</div>
+        <div class="stat-label">Hal qilingan nizolar</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">48</div>
+        <div class="stat-label">Sertifikatlangan hakam</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">23</div>
+        <div class="stat-label">Namunaviy shablon</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4.2x</div>
+        <div class="stat-label">Suddan tezroq</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert -->
+  <div style="max-width:1000px; margin:2rem auto 0; padding:0 2.5rem;">
+    <div class="alert-box">
+      <span>&#9432;</span>
+      <span><strong>Yangilik:</strong> 2026-yil 1-iyundan boshlab 50 mln so'mgacha bo'lgan bitimlarda e-imzo orqali hakamlik bitimi tuzish rasmiy kuchga kirdi.</span>
+    </div>
+  </div>
+
+  <!-- Hujjatlar section -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Namunaviy hujjatlar</div>
+        <div class="section-sub">Standart shablonlar va ko'rsatmalar</div>
+      </div>
+      <a class="see-all-link" onclick="showPage('docs')">Barchasini ko'rish &#8594;</a>
+    </div>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-icon-wrap">📄</div>
+        <div class="doc-name">Hakamlik bitimi — standart</div>
+        <div class="doc-meta">PDF · 2 bet · O'zbekcha</div>
+        <span class="doc-tag tag-free">Bepul</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">⚡</div>
+        <div class="doc-name">E-imzoli bitim shabloni</div>
+        <div class="doc-meta">PDF · E-IMZO integratsiyasi</div>
+        <span class="doc-tag tag-new">Yangi 2026</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">📋</div>
+        <div class="doc-name">Da'vo arizasi namunasi</div>
+        <div class="doc-meta">DOCX · 3 bet</div>
+        <span class="doc-tag tag-free">Bepul</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">🏛</div>
+        <div class="doc-name">Yirik bitim shabloni</div>
+        <div class="doc-meta">PDF · Notarial tasdiq uchun</div>
+        <span class="doc-tag tag-notarial">Notarial</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Yangiliklar section -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">So'nggi yangiliklar</div>
+        <div class="section-sub">Qonunchilik va platforma yangiliklari</div>
+      </div>
+      <a class="see-all-link" onclick="showPage('news')">Barchasini ko'rish &#8594;</a>
+    </div>
+    <div class="news-grid">
+      <div class="news-card" onclick="showPage('news')">
+        <div class="news-date-col">
+          <div class="news-day">05</div>
+          <div class="news-month">Iyun 2026</div>
+        </div>
+        <div>
+          <span class="news-badge nb-law">Qonunchilik</span>
+          <div class="news-title">E-imzo orqali hakamlik bitimlari tuzish tartibi joriy etildi</div>
+          <div class="news-desc">50 mln so'mgacha bo'lgan tijorat nizolarida elektron raqamli imzoni qo'llash imkoniyati rasmiy kuchga kirdi.</div>
+        </div>
+      </div>
+      <div class="news-card" onclick="showPage('news')">
+        <div class="news-date-col">
+          <div class="news-day">21</div>
+          <div class="news-month">May 2026</div>
+        </div>
+        <div>
+          <span class="news-badge nb-announce">Taklif</span>
+          <div class="news-title">Yirik bitimlarda notarial tasdiq majburiy qilinishi muhokamada</div>
+          <div class="news-desc">Adolat vazirligi 100 mln so'mdan yuqori hakamlik bitimlari uchun notarial tasdiqlash bo'yicha qonunchilik loyihasini jamoatchilik muhokamaga qo'ydi.</div>
+        </div>
+      </div>
+      <div class="news-card" onclick="showPage('news')">
+        <div class="news-date-col">
+          <div class="news-day">10</div>
+          <div class="news-month">May 2026</div>
+        </div>
+        <div>
+          <span class="news-badge nb-platform">Platforma</span>
+          <div class="news-title">Xabardorlik tizimi yangilandi: SMS va elektron pochta integratsiyasi</div>
+          <div class="news-desc">Muhokama sanalari va chaqiruvlar endi avtomatik ravishda taraflarga xabar qilinadi.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Hakamlar section -->
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Sertifikatlangan hakamlar</div>
+        <div class="section-sub">Malakali mutaxassislar ro'yxati</div>
+      </div>
+      <a class="see-all-link" onclick="showPage('hakamlar')">Barchasini ko'rish &#8594;</a>
+    </div>
+    <div class="hakam-grid">
+      <div class="hakam-card">
+        <div class="hakam-av">AK</div>
+        <div>
+          <div class="hakam-name">Alisher Karimov</div>
+          <div class="hakam-spec">Tijorat nizolari · Shartnoma huquqi</div>
+          <div class="hakam-meta"><span>14 yil tajriba</span><span>312 nizo</span></div>
+          <span class="hakam-status">Faol</span>
+        </div>
+      </div>
+      <div class="hakam-card">
+        <div class="hakam-av" style="background:#1a3a5c;">MR</div>
+        <div>
+          <div class="hakam-name">Mohira Rashidova</div>
+          <div class="hakam-spec">Qurilish · Investitsiya nizolari</div>
+          <div class="hakam-meta"><span>9 yil tajriba</span><span>178 nizo</span></div>
+          <span class="hakam-status">Faol</span>
+        </div>
+      </div>
+      <div class="hakam-card">
+        <div class="hakam-av" style="background:#3b1f6e;">JN</div>
+        <div>
+          <div class="hakam-name">Jasur Normatov</div>
+          <div class="hakam-spec">Xalqaro arbitraj · Investitsiya huquqi</div>
+          <div class="hakam-meta"><span>11 yil tajriba</span><span>94 nizo</span></div>
+          <span class="hakam-status">Faol</span>
+        </div>
+      </div>
+      <div class="hakam-card">
+        <div class="hakam-av" style="background:#78350f;">SU</div>
+        <div>
+          <div class="hakam-name">Sarvinoz Umarova</div>
+          <div class="hakam-spec">Intellektual mulk · IT nizolari</div>
+          <div class="hakam-meta"><span>7 yil tajriba</span><span>145 nizo</span></div>
+          <span class="hakam-status">Faol</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="fb-title">O'zbekiston Hakamlik Sudi</div>
+          <p>Tijorat nizolarini suddan tashqarida tez, adolatli va maxfiy tarzda hal etuvchi rasmiy davlat platformasi.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Xizmatlar</h4>
+          <a onclick="showPage('ariza')">Ariza berish</a>
+          <a onclick="showPage('docs')">Hujjatlar</a>
+          <a onclick="showPage('hakamlar')">Hakamlar</a>
+        </div>
+        <div class="footer-col">
+          <h4>Ma'lumot</h4>
+          <a onclick="showPage('news')">Yangiliklar</a>
+          <a>Qonunchilik</a>
+          <a>FAQ</a>
+        </div>
+        <div class="footer-col">
+          <h4>Aloqa</h4>
+          <a>Toshkent, O'zbekiston</a>
+          <a>info@hakamlik.uz</a>
+          <a>+998 71 200 00 00</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 O'zbekiston Hakamlik Sudi. Demo versiya.</p>
+        <div class="footer-badge">Demo Portal</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════ DOCS PAGE ════════════════ -->
+<div id="docs" class="page">
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <span onclick="showPage('home')">Bosh sahifa</span> &rsaquo; Hujjatlar va shablonlar
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Hujjatlar va shablonlar</div>
+        <div class="section-sub">Barcha namunaviy hujjatlar, bitim shablonlari va qonunchilik hujjatlari</div>
+      </div>
+    </div>
+    <div class="search-filter">
+      <input class="search-input" type="text" placeholder="Hujjat nomi yoki kalit so'z bilan qidiring...">
+      <button class="btn-gold">Qidirish</button>
+    </div>
+    <div class="filter-tabs">
+      <div class="ftab active">Barchasi</div>
+      <div class="ftab">Hakamlik bitimlari</div>
+      <div class="ftab">Da'vo arizalari</div>
+      <div class="ftab">Qaror shablonlari</div>
+      <div class="ftab">Qonunchilik</div>
+      <div class="ftab">Ko'rsatmalar</div>
+      <div class="ftab">Xalqaro</div>
+    </div>
+    <div class="doc-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+      <div class="doc-card">
+        <div class="doc-icon-wrap">📄</div>
+        <div class="doc-name">Hakamlik bitimi — standart</div>
+        <div class="doc-meta">PDF · 2 bet · O'zbekcha</div>
+        <span class="doc-tag tag-free">Bepul yuklab olish</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">🏛</div>
+        <div class="doc-name">Hakamlik bitimi — yirik</div>
+        <div class="doc-meta">PDF · 5 bet · Notarial uchun</div>
+        <span class="doc-tag tag-notarial">Notarial tasdiq</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">⚡</div>
+        <div class="doc-name">E-imzoli bitim shabloni</div>
+        <div class="doc-meta">PDF · E-IMZO / MyID</div>
+        <span class="doc-tag tag-new">Yangi 2026</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">📋</div>
+        <div class="doc-name">Da'vo arizasi namunasi</div>
+        <div class="doc-meta">DOCX · 3 bet</div>
+        <span class="doc-tag tag-free">Bepul yuklab olish</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">⚖️</div>
+        <div class="doc-name">Hakamlik qarori shakli</div>
+        <div class="doc-meta">DOCX · 4 bet</div>
+        <span class="doc-tag tag-free">Bepul yuklab olish</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">📖</div>
+        <div class="doc-name">Hakamlik jarayoni qoidalari</div>
+        <div class="doc-meta">PDF · 18 bet</div>
+        <span class="doc-tag tag-free">Bepul yuklab olish</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">🌐</div>
+        <div class="doc-name">Xalqaro hakamlik bitimi</div>
+        <div class="doc-meta">PDF · O'zbekcha / Inglizcha</div>
+        <span class="doc-tag tag-new">Yangi 2026</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">📬</div>
+        <div class="doc-name">Xabardorlik shakli</div>
+        <div class="doc-meta">DOCX · SMS/email integratsiyasi</div>
+        <span class="doc-tag tag-new">Yangi 2026</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">📊</div>
+        <div class="doc-name">Hakamlik haq-to'lov jadval</div>
+        <div class="doc-meta">PDF · 2026 tariflar</div>
+        <span class="doc-tag tag-free">Bepul yuklab olish</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">📝</div>
+        <div class="doc-name">Apellyatsiya arizasi</div>
+        <div class="doc-meta">DOCX · E'tiroz uchun</div>
+        <span class="doc-tag tag-free">Bepul yuklab olish</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">🤝</div>
+        <div class="doc-name">Mediatsiya bitimi shabloni</div>
+        <div class="doc-meta">PDF · 3 bet</div>
+        <span class="doc-tag tag-free">Bepul yuklab olish</span>
+      </div>
+      <div class="doc-card">
+        <div class="doc-icon-wrap">📜</div>
+        <div class="doc-name">Hakamlik to'g'risida qonun</div>
+        <div class="doc-meta">PDF · Rasmiy matn · 2024</div>
+        <span class="doc-tag tag-free">Bepul yuklab olish</span>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <p>© 2026 O'zbekiston Hakamlik Sudi. Demo versiya.</p>
+        <div class="footer-badge">Demo Portal</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════ HAKAMLAR PAGE ════════════════ -->
+<div id="hakamlar" class="page">
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <span onclick="showPage('home')">Bosh sahifa</span> &rsaquo; Sertifikatlangan hakamlar
+    </div>
+  </div>
+  <div class="hakamlar-page">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Sertifikatlangan hakamlar</div>
+        <div class="section-sub">O'zbekiston Hakamlik Sudi ro'yxatidagi 48 malakali mutaxassis</div>
+      </div>
+    </div>
+    <div class="search-filter">
+      <input class="search-input" type="text" placeholder="Ism yoki ixtisoslik bo'yicha qidiring...">
+      <button class="btn-gold" style="background:var(--navy);color:#fff;border:none;padding:9px 18px;border-radius:4px;cursor:pointer;font-size:13px;">Qidirish</button>
+    </div>
+    <div class="filter-tabs">
+      <div class="ftab active">Barchasi</div>
+      <div class="ftab">Tijorat</div>
+      <div class="ftab">Qurilish</div>
+      <div class="ftab">Xalqaro arbitraj</div>
+      <div class="ftab">IT va texnologiya</div>
+      <div class="ftab">Moliya</div>
+      <div class="ftab">Intellektual mulk</div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="hakam-card" style="padding:1.5rem;">
+        <div class="hakam-av" style="width:52px;height:52px;font-size:16px;">AK</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div class="hakam-name" style="font-size:15px;">Alisher Karimov</div>
+              <div class="hakam-spec">Tijorat nizolari, Shartnoma huquqi, Korporativ nizolar</div>
+            </div>
+            <span class="hakam-status">Faol</span>
+          </div>
+          <div class="hakam-meta" style="margin-top:10px;">
+            <span>&#128197; 14 yil tajriba</span>
+            <span>&#9878; 312 hal qilingan nizo</span>
+            <span>&#127757; O'zbek, Rus, Ingliz</span>
+          </div>
+        </div>
+      </div>
+      <div class="hakam-card" style="padding:1.5rem;">
+        <div class="hakam-av" style="width:52px;height:52px;font-size:16px;background:#1a3a5c;">MR</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div class="hakam-name" style="font-size:15px;">Mohira Rashidova</div>
+              <div class="hakam-spec">Qurilish nizolari, Investitsiya huquqi, Davlat xaridlari</div>
+            </div>
+            <span class="hakam-status">Faol</span>
+          </div>
+          <div class="hakam-meta" style="margin-top:10px;">
+            <span>&#128197; 9 yil tajriba</span>
+            <span>&#9878; 178 hal qilingan nizo</span>
+            <span>&#127757; O'zbek, Rus</span>
+          </div>
+        </div>
+      </div>
+      <div class="hakam-card" style="padding:1.5rem;">
+        <div class="hakam-av" style="width:52px;height:52px;font-size:16px;background:#3b1f6e;">JN</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div class="hakam-name" style="font-size:15px;">Jasur Normatov</div>
+              <div class="hakam-spec">Xalqaro arbitraj, Investitsiya huquqi, ICC/ICSID amaliyoti</div>
+            </div>
+            <span class="hakam-status">Faol</span>
+          </div>
+          <div class="hakam-meta" style="margin-top:10px;">
+            <span>&#128197; 11 yil tajriba</span>
+            <span>&#9878; 94 hal qilingan nizo</span>
+            <span>&#127757; O'zbek, Ingliz, Fransuz</span>
+          </div>
+        </div>
+      </div>
+      <div class="hakam-card" style="padding:1.5rem;">
+        <div class="hakam-av" style="width:52px;height:52px;font-size:16px;background:#78350f;">SU</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div class="hakam-name" style="font-size:15px;">Sarvinoz Umarova</div>
+              <div class="hakam-spec">Intellektual mulk, IT va dasturiy ta'minot nizolari</div>
+            </div>
+            <span class="hakam-status">Faol</span>
+          </div>
+          <div class="hakam-meta" style="margin-top:10px;">
+            <span>&#128197; 7 yil tajriba</span>
+            <span>&#9878; 145 hal qilingan nizo</span>
+            <span>&#127757; O'zbek, Rus, Ingliz</span>
+          </div>
+        </div>
+      </div>
+      <div class="hakam-card" style="padding:1.5rem;">
+        <div class="hakam-av" style="width:52px;height:52px;font-size:16px;background:#1b4332;">BT</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div class="hakam-name" style="font-size:15px;">Bobur Toshmatov</div>
+              <div class="hakam-spec">Moliyaviy nizolar, Bank huquqi, Sug'urta</div>
+            </div>
+            <span class="hakam-status">Faol</span>
+          </div>
+          <div class="hakam-meta" style="margin-top:10px;">
+            <span>&#128197; 12 yil tajriba</span>
+            <span>&#9878; 203 hal qilingan nizo</span>
+            <span>&#127757; O'zbek, Rus</span>
+          </div>
+        </div>
+      </div>
+      <div class="hakam-card" style="padding:1.5rem;">
+        <div class="hakam-av" style="width:52px;height:52px;font-size:16px;background:#831843;">ZY</div>
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div class="hakam-name" style="font-size:15px;">Zilola Yusupova</div>
+              <div class="hakam-spec">Mehnat nizolari, Iste'molchi huquqlari</div>
+            </div>
+            <span class="hakam-status">Faol</span>
+          </div>
+          <div class="hakam-meta" style="margin-top:10px;">
+            <span>&#128197; 8 yil tajriba</span>
+            <span>&#9878; 267 hal qilingan nizo</span>
+            <span>&#127757; O'zbek, Rus</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <p>© 2026 O'zbekiston Hakamlik Sudi. Demo versiya.</p>
+        <div class="footer-badge">Demo Portal</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════ NEWS PAGE ════════════════ -->
+<div id="news" class="page">
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <span onclick="showPage('home')">Bosh sahifa</span> &rsaquo; Yangiliklar va e'lonlar
+    </div>
+  </div>
+  <div class="news-page">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Yangiliklar va e'lonlar</div>
+        <div class="section-sub">Hakamlik sudi faoliyati va qonunchilik yangiliklari</div>
+      </div>
+    </div>
+    <div class="filter-tabs">
+      <div class="ftab active">Barchasi</div>
+      <div class="ftab">Qonunchilik</div>
+      <div class="ftab">Platforma</div>
+      <div class="ftab">Ta'lim</div>
+      <div class="ftab">E'lonlar</div>
+    </div>
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-date-col">
+          <div class="news-day">05</div>
+          <div class="news-month">Iyun 2026</div>
+        </div>
+        <div>
+          <span class="news-badge nb-law">Qonunchilik</span>
+          <div class="news-title">E-imzo orqali hakamlik bitimlari tuzish tartibi joriy etildi</div>
+          <div class="news-desc">50 mln so'mgacha bo'lgan tijorat nizolarida elektron raqamli imzoni qo'llash imkoniyati rasmiy kuchga kirdi. MyID va E-IMZO tizimlari bilan to'liq integratsiya ta'minlandi. Ushbu yangilik hakamlik jarayonini tezlashtirish va qog'oz hujjat aylanishini kamaytirish maqsadida amalga oshirildi.</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-date-col">
+          <div class="news-day">21</div>
+          <div class="news-month">May 2026</div>
+        </div>
+        <div>
+          <span class="news-badge nb-announce">Taklif</span>
+          <div class="news-title">Yirik bitimlarda notarial tasdiq majburiy qilinishi muhokamada</div>
+          <div class="news-desc">Adolat vazirligi 100 mln so'mdan yuqori hakamlik bitimlari uchun notarial tasdiqlash bo'yicha qonunchilik loyihasini jamoatchilik muhokamaga qo'ydi. Muhokama 15 iyungacha davom etadi.</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-date-col">
+          <div class="news-day">10</div>
+          <div class="news-month">May 2026</div>
+        </div>
+        <div>
+          <span class="news-badge nb-platform">Platforma</span>
+          <div class="news-title">Xabardorlik tizimi yangilandi: SMS va elektron pochta integratsiyasi</div>
+          <div class="news-desc">Muhokama sanalari, chaqiruvlar va qarorlar endi avtomatik ravishda taraflarga SMS va elektron pochta orqali xabar qilinadi. Tizim soxta "xabardor bo'lmadim" da'volarini oldini oladi va barcha xabarlar arxivlashtiriladi.</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-date-col">
+          <div class="news-day">28</div>
+          <div class="news-month">Apr 2026</div>
+        </div>
+        <div>
+          <span class="news-badge nb-edu">Ta'lim</span>
+          <div class="news-title">Hakamlar uchun e-bitim va raqamli jarayon bo'yicha o'quv seminari</div>
+          <div class="news-desc">Toshkent shahridagi ikki kunlik seminar 48 sertifikatlangan hakamlarga yangi elektron tizimdan foydalanish ko'nikmalarini berdi. Kelasi seminar sentyabr oyida bo'lib o'tadi.</div>
+        </div>
+      </div>
+      <div class="news-card">
+        <div class="news-date-col">
+          <div class="news-day">15</div>
+          <div class="news-month">Mar 2026</div>
+        </div>
+        <div>
+          <span class="news-badge nb-law">Xalqaro</span>
+          <div class="news-title">O'zbekiston UNCITRAL Model Qonuniga qo'shildi</div>
+          <div class="news-desc">O'zbekiston xalqaro tijorat arbitraji bo'yicha UNCITRAL Model Qonunini qabul qildi. Bu xorijiy investorlar uchun hakamlik jarayonining shaffofligi va ishonchliligi oshishini ta'minlaydi.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <p>© 2026 O'zbekiston Hakamlik Sudi. Demo versiya.</p>
+        <div class="footer-badge">Demo Portal</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════ ARIZA PAGE ════════════════ -->
+<div id="ariza" class="page">
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <span onclick="showPage('home')">Bosh sahifa</span> &rsaquo; Ariza berish
+    </div>
+  </div>
+  <div class="ariza-page-inner">
+    <div class="ariza-header">
+      <div>
+        <h2>Hakamlikka ariza berish</h2>
+        <p>Onlayn ariza orqali hakamlik jarayonini boshlang · 24/7 mavjud</p>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:4px;">Yordam kerakmi?</div>
+        <div style="font-size:13px;color:var(--gold-light);">+998 71 200 00 00</div>
+      </div>
+    </div>
+
+    <div style="font-size:13px;font-weight:500;color:var(--text-muted);margin-bottom:10px;">Ariza turini tanlang:</div>
+    <div class="ariza-types">
+      <div class="ariza-type selected" id="type-oddiy" onclick="selectType('oddiy')">
+        <div class="ariza-type-icon">⚡</div>
+        <div class="ariza-type-name">Oddiy ariza</div>
+        <div class="ariza-type-sub">50 mln so'mgacha</div>
+        <div class="ariza-type-tag">E-imzo orqali · To'liq onlayn · Tez</div>
+      </div>
+      <div class="ariza-type" id="type-yirik" onclick="selectType('yirik')">
+        <div class="ariza-type-icon">🏛</div>
+        <div class="ariza-type-name">Yirik ariza</div>
+        <div class="ariza-type-sub">50 mln so'mdan yuqori</div>
+        <div class="ariza-type-tag">Notarial tasdiq · Onlayn + ofis</div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div style="font-size:15px;font-weight:500;color:var(--navy);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;">
+        &#128221; Ariza ma'lumotlari
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Da'vogar to'liq ismi / kompaniya nomi</label>
+          <input type="text" placeholder="Masalan: Alisher Karimov yoki OOO Alfa">
+        </div>
+        <div class="form-group">
+          <label>Javobgar to'liq ismi / kompaniya nomi</label>
+          <input type="text" placeholder="Masalan: Beta Qurilish MChJ">
+        </div>
+        <div class="form-group">
+          <label>Nizo summasi (so'mda)</label>
+          <input type="text" placeholder="Masalan: 25 000 000">
+        </div>
+        <div class="form-group">
+          <label>Nizo turi</label>
+          <select>
+            <option value="">— Tanlang —</option>
+            <option>Tijorat shartnomasi</option>
+            <option>Qurilish nizosi</option>
+            <option>Investitsiya nizosi</option>
+            <option>Intellektual mulk</option>
+            <option>Moliyaviy nizo</option>
+            <option>IT va dasturiy ta'minot</option>
+            <option>Boshqa</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Elektron pochta manzili</label>
+          <input type="email" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+          <label>Telefon raqami</label>
+          <input type="tel" placeholder="+998 90 000 00 00">
+        </div>
+        <div class="form-group full">
+          <label>Nizo qisqacha tavsifi</label>
+          <textarea rows="5" placeholder="Nizo qanday kelib chiqqanini, talab va maqsadlaringizni qisqacha bayon qiling..."></textarea>
+        </div>
+        <div class="form-group full">
+          <label>Hakamlik bitimi mavjudmi?</label>
+          <select>
+            <option value="">— Tanlang —</option>
+            <option>Ha, shartnomada hakamlik bandi bor</option>
+            <option>Ha, alohida hakamlik bitimi tuzilgan</option>
+            <option>Yo'q, hali tuzilmagan</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-footer">
+        <div class="form-note">&#128274; Ma'lumotlaringiz xavfsiz saqlanadi va uchinchi shaxslarga berilmaydi</div>
+        <button class="btn-gold" style="font-size:14px;padding:11px 28px;">
+          &#10003; Ariza yuborish
+        </button>
+      </div>
+    </div>
+
+    <div style="margin-top:1.5rem;background:var(--cream-dark);border-radius:6px;padding:1.25rem 1.5rem;">
+      <div style="font-size:13px;font-weight:500;color:var(--navy);margin-bottom:8px;">Keyin nima bo'ladi?</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+        <div style="font-size:12px;color:var(--text-muted);">
+          <div style="font-size:20px;margin-bottom:6px;">1️⃣</div>
+          <strong style="color:var(--text-main);">Ariza ko'rib chiqiladi</strong><br>
+          1–2 ish kuni ichida
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);">
+          <div style="font-size:20px;margin-bottom:6px;">2️⃣</div>
+          <strong style="color:var(--text-main);">Hakam tayinlanadi</strong><br>
+          SMS va email orqali xabar beriladi
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);">
+          <div style="font-size:20px;margin-bottom:6px;">3️⃣</div>
+          <strong style="color:var(--text-main);">Muhokama boshlanadi</strong><br>
+          Onlayn yoki jismoniy shaklda
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <p>© 2026 O'zbekiston Hakamlik Sudi. Demo versiya.</p>
+        <div class="footer-badge">Demo Portal</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    const map = { home: 0, docs: 1, hakamlar: 2, news: 3, ariza: 4 };
+    const links = document.querySelectorAll('.nav-links a');
+    if (links[map[id]]) links[map[id]].classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function selectType(type) {
+    document.getElementById('type-oddiy').classList.remove('selected');
+    document.getElementById('type-yirik').classList.remove('selected');
+    document.getElementById('type-' + type).classList.add('selected');
+  }
+
+  document.querySelectorAll('.filter-tabs').forEach(row => {
+    row.querySelectorAll('.ftab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        row.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  });
+</script>
+</body>
+</html>
